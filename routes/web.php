@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'bookingController@Book')->name('client');
+Route::get('/aab', 'bookingController@Book')->name('client');
 Route::get('/baitap', function () {
     return view('baitap');
 });
@@ -23,27 +23,25 @@ Route::get('/aa', function () {
 Route::get('/list', function () {
     return view('client.booking.list');
 });
-Route::get('/main',function()
-{
+Route::get('/main', function () {
     return view('main');
-})->name('main');
-Route::get('/thank',function()
-{
+}) ->name('main');
+Route::get('/', function () {
     return view('thank');
-})->name('thank');
+}) ->name('thank');
 Route::post('/fill', 'bookingController@fill')->name('fill');
 Route::post('/store_booking', 'bookingController@store_booking')->name('store_booking');
 
-Route::resource('/hocsinh','hocsinhController');
-Route::resource('/airline_company','airline_companyController');
-Route::resource('/flight','flightController');
-Route::resource('/passenger','passengerController');
-Route::resource('/user','userController');
-Route::resource('/plane','planeController');
-Route::resource('/bill','billController');
-Route::resource('/bill_detail','bill_detailController');
+Route::resource('/hocsinh', 'hocsinhController');
+Route::resource('/airline_company', 'airline_companyController');
+Route::resource('/flight', 'flightController');
+Route::resource('/passenger', 'passengerController');
+Route::resource('/user', 'userController');
+Route::resource('/plane', 'planeController');
+Route::resource('/bill', 'billController');
+Route::resource('/bill_detail', 'bill_detailController');
 Auth::routes();
-Route::get('/admin', 'AdminController@AdminLogin')->middleware(['auth','role:admin']);
+Route::get('/admin', 'AdminController@AdminLogin')->middleware(['auth', 'role:admin']);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/book', 'bookingController@BookForm')->name('book');
 
@@ -56,8 +54,3 @@ Route::get('/register_form', function () {
     return view('register_form');
 });
 Route::post('/register_sql', 'laivanvoController@register')->name('register_sql');
-
-
-
-
-

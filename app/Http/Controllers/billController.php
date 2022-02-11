@@ -16,9 +16,8 @@ class billController extends Controller
      */
     public function index()
     {
-        //$bills=bill::paginate(10);
-        $bills=bill::all();
-        return view('bill.tables')->with('bills',$bills);
+        $bills = bill::all();
+        return view('bill.tables')->with('bills', $bills);
     }
 
     /**
@@ -29,8 +28,8 @@ class billController extends Controller
     public function create()
     {
         $users=DB::table('users')
-        ->select(DB::raw('id'))
-        ->get();
+            ->select(DB::raw('id'))
+            ->get();
         return view('bill.create')->with('users',$users);
     }
 
@@ -43,7 +42,7 @@ class billController extends Controller
     public function store(store_bill $request)
     {
         bill::create($request->all());
-        return redirect()->route('bill.index')->with('msg','sucess');
+        return redirect()->route('bill.index')->with('msg', 'sucess');
     }
 
     /**
@@ -54,8 +53,8 @@ class billController extends Controller
      */
     public function show($id)
     {
-        $bills=bill::find($id);
-        return view('bill.detail')->with('bills',$bills);
+        $bills = bill::find($id);
+        return view('bill.detail')->with('bills', $bills);
     }
 
     /**
@@ -66,8 +65,8 @@ class billController extends Controller
      */
     public function edit($id)
     {
-        $bills=bill::find($id);
-        return view('bill.edit')->with('bills',$bills);
+        $bills = bill::find($id);
+        return view('bill.edit')->with('bills', $bills);
     }
 
     /**
@@ -80,11 +79,11 @@ class billController extends Controller
     public function update(store_bill $request, $id)
     {
         $bills = bill::find($id);
-        $bills->name=$request->name;
-        $bills->phone=$request->phone;
-        $bills->id_card=$request->id_card;
+        $bills->name = $request->name;
+        $bills->phone = $request->phone;
+        $bills->id_card = $request->id_card;
         $bills->save();
-        return redirect()->route('bill.index')->with('msg','sucess');
+        return redirect()->route('bill.index')->with('msg', 'sucess');
     }
 
     /**
@@ -95,8 +94,8 @@ class billController extends Controller
      */
     public function destroy($id)
     {
-        $bills=bill::find($id);
+        $bills = bill::find($id);
         $bills->delete();
-        return redirect()->route('bill.index')->with('msg','sucess');
+        return redirect()->route('bill.index')->with('msg', 'sucess');
     }
 }
