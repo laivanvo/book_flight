@@ -29,4 +29,4 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      run: ./vendor/bin/phpcs
+      run: ./vendor/bin/phpunit
