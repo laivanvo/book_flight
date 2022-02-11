@@ -1,32 +1,3 @@
-
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@laivanvo
-php-actions /
-phpunit
-Public
-
-Code
-Issues 3
-Pull requests
-Actions
-Wiki
-Security
-
-    Insights
-
-phpunit/action.yml
-@g105b
-g105b Group output on error (#32)
-Latest commit 0c07054 on Jun 7, 2021
-History
-2 contributors
-@g105b
-@pres
-109 lines (89 sloc) 3.02 KB
 name: PHPUnit (php-actions)
 description: Run your PHPUnit tests in your Github Actions.
 
@@ -136,19 +107,3 @@ runs:
 branding:
   icon: 'check-square'
   color: 'purple'
-
-    © 2022 GitHub, Inc.
-
-    Terms
-    Privacy
-    Security
-    Status
-    Docs
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
-Loading complete
