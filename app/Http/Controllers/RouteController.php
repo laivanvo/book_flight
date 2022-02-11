@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\route;
 
-class bill_detailController extends Controller
+class RouteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -72,7 +72,7 @@ class bill_detailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
         $routes  =  route::find($id);
         $routes->name = $request->name;

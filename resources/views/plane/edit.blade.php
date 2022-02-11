@@ -16,7 +16,7 @@
         <span class = "invalid-feedback" role = "alert">
         <strong style = "color: red">{{ $message }}</strong>
         </span>
-        @enderror         --}}
+        @enderror --}}
 	</div>
 	
     <div class = "form-group has-error">
@@ -104,6 +104,7 @@
 @enderror
 
 	</div>
+    
     
     <button type = "submit" class = "btn btn-primary">Save</button>
 </form>

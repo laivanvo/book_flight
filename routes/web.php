@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/aab', 'bookingController@Book')->name('client');
+Route::get('/home', 'BookingController@Book')->name('client');
 Route::get('/baitap', function () {
     return view('baitap');
 });
@@ -26,31 +26,17 @@ Route::get('/list', function () {
 Route::get('/main', function () {
     return view('main');
 }) ->name('main');
-Route::get('/', function () {
+Route::get('/thank', function () {
     return view('thank');
 }) ->name('thank');
-Route::post('/fill', 'bookingController@fill')->name('fill');
-Route::post('/store_booking', 'bookingController@store_booking')->name('store_booking');
-
-Route::resource('/hocsinh', 'hocsinhController');
-Route::resource('/airline_company', 'airline_companyController');
-Route::resource('/flight', 'flightController');
-Route::resource('/passenger', 'passengerController');
-Route::resource('/user', 'userController');
-Route::resource('/plane', 'planeController');
-Route::resource('/bill', 'billController');
-Route::resource('/bill_detail', 'bill_detailController');
+Route::post('/fill', 'BookingController@fill')->name('fill');
+Route::post('/store_booking', 'BookingController@storeBooking')->name('store_booking');
+Route::resource('/airline_company', 'AirlineCompanyController');
+Route::resource('/flight', 'FlightController');
+Route::resource('/passenger', 'PassengerController');
+Route::resource('/user', 'UserController');
+Route::resource('/plane', 'PlaneController');
+Route::resource('/bill', 'BillController');
+Route::resource('/bill_detail', 'BillDetailController');
 Auth::routes();
-Route::get('/admin', 'AdminController@AdminLogin')->middleware(['auth', 'role:admin']);
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/book', 'bookingController@BookForm')->name('book');
-
-Route::get('/login_form', function () {
-    return view('login_form');
-});
-Route::post('/login_sql', 'laivanvoController@login')->name('login_sql');
-
-Route::get('/register_form', function () {
-    return view('register_form');
-});
-Route::post('/register_sql', 'laivanvoController@register')->name('register_sql');
+Route::post('/book', 'BookingController@BookForm')->name('book');

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class store_airline_companyRequest extends FormRequest
+class StoreFillRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class store_airline_companyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name_airline_company' => 'required|max:255'
+            'total_money'=>'numeric'
         ];
     }
 }

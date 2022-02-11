@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\bill_detail;
 use App\Http\Requests\store_bill_detail;
 
-class bill_detailController extends Controller
+class BillDetailController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePassengerRequest;
 use App\Models\bill;
 use Illuminate\Http\Request;
 use App\Models\passenger;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\store_passenger;
-class passengerController extends Controller
+class PassengerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,6 @@ class passengerController extends Controller
      */
     public function index()
     {
-        //$passengers=passenger::paginate(10);
         $passengers = passenger::all();
         return view('passenger.tables')->with('passengers', $passengers);
     }
@@ -40,11 +39,10 @@ class passengerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(store_passenger $request)
+    public function store(StorePassengerRequest $request)
     {
-
         passenger::create($request->all());
-        return redirect()->route('passenger.index')->with('msg', 'sucess');
+        return redirect()->route('passenger.create')->with('msg', 'sucess');
     }
 
     /**
@@ -81,14 +79,23 @@ class passengerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(store_passenger $request, $id)
+    public function update(StorePassengerRequest $request, $id)
     {
         $passengers = passenger::find($id);
-        $passengers->name = $request->name;
+        $passengers1 = passenger::find($id);
+        $passengers->bill_id = $request->bill_id;
+        $passengers->name_passenger = $request->name_passenger;
+        $passengers->CMND = $request->CMND;
         $passengers->phone = $request->phone;
-        $passengers->id_card = $request->id_card;
+        $passengers->age = $request->age;
+        $passengers->gender = $request->gender;
+        $passengers->nationality = $request->nationality;
         $passengers->save();
-        return redirect()->route('passenger.index')->with('msg', 'sucess');
+        if ($passengers != $passengers1) {
+            return redirect()->route('passenger.index')->with('msg', 'sucess');
+        } else {
+            return back();
+        }
     }
 
     /**

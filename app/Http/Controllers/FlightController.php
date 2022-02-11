@@ -7,7 +7,7 @@ use App\Models\flight;
 use App\Models\route;
 use Illuminate\Support\Facades\DB;
 
-class flightController extends Controller
+class FlightController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -77,7 +77,7 @@ class flightController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
         $flights = flight::find($id);
         $flights->route_id = $request->route_id;

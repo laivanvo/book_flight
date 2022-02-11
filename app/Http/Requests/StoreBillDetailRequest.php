@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class store_plane extends FormRequest
+class StoreBillDetailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,9 @@ class store_plane extends FormRequest
     public function rules()
     {
         return [
-            'flight_id' => 'required|max:255',
-            'airline_company_id' => 'required|max:255',
-            'name_plane' => 'required|max:255',
-            'category_id' => 'required|max:255',
-            'status' => 'required|max:255',
-            'detail' => 'required|max:255',
-            'price' => 'required|max:255',
-            'image' => 'required|max:255',
+            'bill_id' => 'required|max:255',
             'chair' => 'required|max:255',
-            'chair_full' => 'required|max:255',
+            'departure' => 'required|max:255',
         ];
     }
 }

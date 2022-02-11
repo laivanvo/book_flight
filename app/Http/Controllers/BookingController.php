@@ -16,7 +16,6 @@ use Brick\Math\BigInteger;
 use Brick\Math\BigNumber;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingMail;
-// use Mail;
 
 class BookingController extends Controller
 {
@@ -35,6 +34,7 @@ class BookingController extends Controller
 
     public function bookForm(CheckBookFormRequest $request)
     {
+        // dd($request);
         $route_departure_airports = DB::select('select distinct departure_airport from routes');
         $route_arrival_airports = DB::select('select distinct arrival_airport from routes');
         // $list_flights = DB::table('flights')
@@ -50,7 +50,7 @@ class BookingController extends Controller
             // ->orderBy($request->sort, 'asc')
             // ->get();
         $sql = "select distinct *, planes.id plane_code, flights.id flight_code, hour(dateDeparture) dateDeparture_hour, minute(dateDeparture) dateDeparture_minute, hour(dateArrival) dateArrival_hour, minute(dateArrival) dateArrival_minute, timestampdiff(day, dateDeparture, dateArrival) day, mod(timestampdiff(hour, dateDeparture, dateArrival), 24) hour, mod(timestampdiff(minute, dateDeparture, dateArrival), 60) minute from flights, routes, planes, categories, airline_companies
-        where routes.id = flights.route_id and flights.id = planes.flight_id and categories.id = planes.category_id and airline_companies.id = planes.airline_company_id and name_category = '".$request->name_category."' and status = '1' 
+        where routes.id = flights.route_id and flights.id = planes.flight_id and categories.id = planes.category_id and airline_companies.id = planes.airline_company_id and status = '1' 
         and departure_airport  = '".$request->departure_airport."' and (name_airline_company like '%".$request->name_airline_company."' and arrival_airport = '".$request->arrival_airport."') and dateDeparture = '".$request->dateDeparture."'".$request->sort;
         $select = "select *, hour(dateDeparture) dateDeparture_hour, minute(dateDeparture) dateDeparture_minute, hour(dateArrival) dateArrival_hour, minute(dateArrival) dateArrival_minute, timestampdiff(day, dateDeparture, dateArrival) day, mod(timestampdiff(hour, dateDeparture, dateArrival), 24) hour, mod(timestampdiff(minute, dateDeparture, dateArrival), 60) minute from flights, routes, planes, categories, airline_companies
         where routes.id = flights.route_id and flights.id = planes.flight_id and categories.id = planes.category_id and airline_companies.id = planes.airline_company_id
@@ -74,70 +74,64 @@ class BookingController extends Controller
 
     public function fill(Request $request)
     {
+        // dd($request);
         $select = "select *, planes.id plane_id, EXTRACT(MONTH FROM dateDeparture) month, EXTRACT(day FROM dateDeparture) date, hour(dateDeparture) dateDeparture_hour, minute(dateDeparture) dateDeparture_minute, hour(dateArrival) dateArrival_hour, minute(dateArrival) dateArrival_minute, timestampdiff(day, dateDeparture, dateArrival) day, mod(timestampdiff(hour, dateDeparture, dateArrival), 24) hour, mod(timestampdiff(minute, dateDeparture, dateArrival), 60) minute from planes, flights, routes, categories, airline_companies
             where planes.flight_id = flights.id and flights.route_id = routes.id and categories.id = planes.category_id and airline_companies.id = planes.airline_company_id and planes.id = ".$request->plane_code." and flights.id = ".$request->flight_code;
         $flights = DB::select($select);
         return view('fill_information')->with('request', $request)->with('flights', $flights);
     }
 
-    public function storeBooking(FillRequest $request)
+    public function storeBooking(Request $request)
     {
+        // dd($request);
         $bill = bill::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => 2,
             'total_money' => $request->total_money
         ]);
 
         // Tạo bill detail
-        if ($bill)
-        {
-            bill_detail::create
-            ([
-                'bill_id' => $bill->id,
-                'chair' => $request->chair."-".($request->chair+$request->count_customer),
-                'departure' => $request->departure
-            ]);
-            $chair = $request->chair+$request->count_customer+1;
-            $plane = plane::find($request->plane_id);
-            $plane->chair = $chair;
-            if ($plane->chair>$plane->chair_full)
-            {
-                $plane->status = '0';
-            }
-            $plane->save();
-            for ($i = 1; $i <= $request->adult; $i++)
-            {
-                $name = "name".$i;
-                $phone = "phone".$i;
-                $CMND = "cmnd".$i;
-                $age = "age".$i;
-                $gender = "gender".$i;
-                $qt = "qt".$i;
-                $passengers  = new passenger();
-                $passengers->bill_id = $bill->id;
-                $passengers->name_passenger = $request->$name;
-                $passengers->phone = $request->$phone;
-                $passengers->CMND = $request->$CMND;
-                $passengers->age = $request->$age;
-                $passengers->gender = $request->$gender;
-                $passengers->nationality = $request->$qt;
-                $passengers->save();
-            }
-            $data = [
-                'name' => $request->name,
-                'dateDepature' => $request->depature,
-                'hour' => $request->hour,
-                'minute' => $request->minute
-            ];
-            $this->sendMail($data,  $request->mail);
-            return view('thank')->with('success', 'Quý khách đã đặt phòng thành công. Thông tin chi tiết đã được gửi tới email của bạn');
-        } else
-        {
-            return view('error')->with('error', 'Có lỗi xảy ra vui lòng thử lại');
+        
+        BillDetail::create([
+            'bill_id' => $bill->id,
+            'chair' => $request->chair . "-" . ($request->chair + $request->count_customer),
+            'departure' => $request->departure
+        ]);
+        $chair = $request->chair + $request->count_customer + 1;
+        $plane = plane::find($request->plane_id);
+        $plane->chair = $chair;
+        if ($plane->chair>$plane->chair_full) {
+            $plane->status = '0';
         }
+        $plane->save();
+        for ($i = 1; $i <= $request->adult; $i++) {
+            $name = "name" . $i;
+            $phone = "phone" . $i;
+            $CMND = "cmnd" . $i;
+            $age = "age" . $i;
+            $gender = "gender" . $i;
+            $qt = "qt" . $i;
+            $passengers  = new passenger();
+            $passengers->bill_id = $bill->id;
+            $passengers->name_passenger = $request->$name;
+            $passengers->phone = $request->$phone;
+            $passengers->CMND = $request->$CMND;
+            $passengers->age = $request->$age;
+            $passengers->gender = $request->$gender;
+            $passengers->nationality = $request->$qt;
+            $passengers->save();
+        }
+        $data = [
+            'name' => $request->name,
+            'dateDepature' => $request->depature,
+            'hour' => $request->hour,
+            'minute' => $request->minute
+        ];
+        // $this->sendMail($request->mail, $data);
+        return view('thank')->with('success', 'Quý khách đã đặt phòng thành công. Thông tin chi tiết đã được gửi tới email của bạn');
     }
 
-    public function sendMail($data = [], $email)
-    {
-        Mail::to($email)->send(new BookingMail($data));
-    }
+    // public function sendMail($email, $data = [])
+    // {
+    //     Mail::to($email)->send(new BookingMail($data));
+    // }
 }

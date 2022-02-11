@@ -30,7 +30,7 @@ class BookingMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.booking')->from('laixuantruong2000s@gmail.com', 'web đặt vé máy bay uy tín chất lượng')
+        return $this->view('Mails.booking')->from('laixuantruong2000s@gmail.com', 'web đặt vé máy bay uy tín chất lượng')
                     ->subject('[an_tuyến_võ] Thư xác nhận đặt vé máy bay')
                     ->with($this->data);
     }

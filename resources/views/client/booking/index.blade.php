@@ -1,4 +1,4 @@
-@extends('layouts.client')
+@extends('Layouts.client')
 
 @section('content')
 
@@ -11,7 +11,7 @@
 
     <!-- ======================== Booking ======================== -->
 
-    @include('layouts.BookForm')
+    @include('Layouts.BookForm')
     {{--@include('shared.booking')
 
     <!-- ========================  Rooms ======================== -->

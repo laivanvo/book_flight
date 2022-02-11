@@ -7,7 +7,7 @@ use App\Models\bill;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\store_bill;
 
-class billController extends Controller
+class BillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,7 +30,7 @@ class billController extends Controller
         $users=DB::table('users')
             ->select(DB::raw('id'))
             ->get();
-        return view('bill.create')->with('users',$users);
+        return view('bill.create')->with('users', $users);
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class store_bill extends FormRequest
+class StoreBillRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,6 @@ class store_bill extends FormRequest
         return [
             'user_id' => 'required|max:255',
             'total_money' => 'required|max:255',
-            
         ];
     }
 }

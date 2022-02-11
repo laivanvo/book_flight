@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\category;
 use App\Http\Requests\store_category;
 
-class bill_detailController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,7 +36,7 @@ class bill_detailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(store_category $request)
+    public function store(Request $request)
     {
         category::create($request->all());
         return redirect()->route('category.index')->with('msg', 'sucess');

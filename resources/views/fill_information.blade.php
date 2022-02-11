@@ -10,8 +10,7 @@
     <script src = "jquery/laivanvo.min.js"></script>
     <script>
         function loadDoc() {
-            document.getElementById("demo").innerHTML  = 
-              "an tuyen vo";
+            document.getElementById("demo").innerHTML  = "an tuyen vo";
         }
         var y = 1;
         var x = 'ccc'+y;

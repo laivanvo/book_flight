@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\plane;
+use App\Models\Plane;
 use Illuminate\Support\Facades\DB;
+use Tests\Unit\PlaneTest;
 
-class planeController extends Controller
+class PlaneController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,7 @@ class planeController extends Controller
     public function index()
     {
         //$planes = plane::paginate(10);
-        $planes = plane::all();
+        $planes = Plane::all();
         return view('plane.tables')->with('planes', $planes);
     }
 
@@ -44,26 +45,26 @@ class planeController extends Controller
      */
     public function store(Request $request)
     {
-        plane::create($request->all());
+        Plane::create($request->all());
         return redirect()->route('plane.index')->with('msg', 'sucess');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $planes = plane::find($id);
+        $planes = Plane::find($id);
         return view('plane.detail')->with('planes', $planes);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -77,7 +78,7 @@ class planeController extends Controller
         $categories = DB::table('categories')
             ->select(DB::raw('*'))
             ->get();
-        $planes = plane::find($id);
+        $planes =Plane::find($id);
         return view('plane.edit')->with('planes', $planes)->with('flights', $flights)->with('airline_companies', $airline_companies)->with('categories', $categories);
     }
 
@@ -85,12 +86,12 @@ class planeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
-        $planes  =  plane::find($id);
+        $planes  = Plane::find($id);
         $planes->flight_id = $request->flight_id;
         $planes->airline_company_id = $request->airline_company_id;
         $planes->category_id = $request->category_id;
@@ -106,12 +107,12 @@ class planeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $planes = plane::find($id);
+        $planes = Plane::find($id);
         $planes->delete();
         return redirect()->route('plane.index')->with('msg', 'sucess');
     }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FillRequest extends FormRequest
+class StorePassengerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,13 @@ class FillRequest extends FormRequest
     public function rules()
     {
         return [
-            'total_money'=>'numeric'
+            'bill_id' => 'required|max:255',
+            'name_passenger' => 'required|email|max:255',
+            'CMND' => 'required|max:255',
+            'phone' => 'required|max:255',
+            'age' => 'required|max:255',
+            'gender' => 'required|max:255',
+            'nationality' => 'required|max:255',
         ];
     }
 }

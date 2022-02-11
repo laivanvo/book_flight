@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\airline_company;
 use App\Http\Requests\store_airline_companyRequest;
+use App\Http\Requests\StoreAirlineCompanyRequest;
+use App\Models\AirlineCompany;
 
 class AirlineCompanyController extends Controller
 {
@@ -15,7 +17,7 @@ class AirlineCompanyController extends Controller
      */
     public function index()
     {
-        $airline_companies = airline_company::all();
+        $airline_companies = airlinecompany::all();
         return view('airline_company.tables')->with('airline_companys', $airline_companies);
     }
 
@@ -72,9 +74,9 @@ class AirlineCompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(store_airline_companyRequest $request, $id)
+    public function update(StoreAirlineCompanyRequest $request, $id)
     {
-        $airline_companys = airline_company::find($id);
+        $airline_companys = AirlineCompany::find($id);
         $airline_companys->name_airline_company = $request->name_airline_company;
         $airline_companys->save();
         return redirect()->route('airline_company.index')->with('msg', 'sucess');

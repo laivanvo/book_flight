@@ -1,3 +1,4 @@
+<html>
 <form action = "{{ route('plane.store') }}" method = "POST">
     @csrf
 <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin = "anonymous">
@@ -93,3 +94,4 @@
 	</div>
     <button type = "submit" class = "btn btn-primary">Save</button>
 </form>
+</html>
