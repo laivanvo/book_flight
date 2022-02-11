@@ -16,3 +16,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: docker ps
       run: docker ps
+    - name: docker start
+      run: docker-compopse start
+    - name: docke exec
+      run: docker exec -it web bash
+    - name: php unit
+      run: php artisan test
